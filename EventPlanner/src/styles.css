@@ -5,6 +5,14 @@ body {
     background: #f9fafb;
 }
 
+.b-white {
+    background: white;
+}
+
+.text-grey {
+    color: #313435
+}
+
 .text-blue {
     color: #007bff;
 }
@@ -27,6 +35,11 @@ body {
 
 .text-red {
     color: #009688;
+}
+
+.dropdown-left {
+    right: 0 !important;
+    left: auto !important;
 }
 
 .page {

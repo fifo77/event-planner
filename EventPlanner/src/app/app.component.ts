@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faHome, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from './modules/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,12 @@ export class AppComponent {
     'faUser': faUser,
     'faUserCircle': faUserCircle
   };
+
+  constructor(
+    public authService: AuthService
+  ) { }
+
+  ngOnInit() {
+    this.authService.check();
+  }
 }

@@ -2,21 +2,16 @@
  * Created by kubos on 14. 3. 2019.
  */
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { User } from '../models/user.model';
-
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { HttpClient } from '@angular/common/http';
+import { User } from 'src/app/models/user.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UserService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/users/';
+  private userUrl = environment.host + '/users/';
 
   public getUsers() {
     return this.http.get<User[]>(this.userUrl);

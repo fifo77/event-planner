@@ -2,34 +2,32 @@
  * Created by kubos on 14. 3. 2019.
  */
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { User } from '../models/user.model';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
+  templateUrl: '../views/user.component.html',
   styles: []
 })
 export class UserComponent implements OnInit {
 
   users: User[];
 
-  constructor(private router: Router, private userService: UserService) {
-
-  }
+  constructor(
+    private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUsers()
-      .subscribe( data => {
+      .subscribe(data => {
         this.users = data;
       });
   };
 
   deleteUser(user: User): void {
     this.userService.deleteUser(user)
-      .subscribe( data => {
+      .subscribe(data => {
         this.users = this.users.filter(u => u !== user);
       })
   };

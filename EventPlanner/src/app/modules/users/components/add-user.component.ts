@@ -2,25 +2,23 @@
  * Created by kubos on 14. 3. 2019.
  */
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { User } from '../models/user.model';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
-  templateUrl: './add-user.component.html'
+  templateUrl: '../views/add-user.component.html'
 })
 export class AddUserComponent {
 
   user: User = new User();
 
-  constructor(private router: Router, private userService: UserService) {
-
-  }
+  constructor(
+    private userService: UserService) { }
 
   createUser(): void {
     this.userService.createUser(this.user)
-      .subscribe( data => {
+      .subscribe(data => {
         alert("User created successfully.");
       });
 
