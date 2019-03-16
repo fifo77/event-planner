@@ -1,11 +1,48 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<div class="page">
+  <div class="sidebar">
+    <div class="header">
+      <h1><a routerLink="/">Planner</a></h1>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">
+          <fa-icon class="icon text-blue" [icon]="icons.faHome"></fa-icon>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="users">
+          <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
+          Users
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="add">
+          <div class="icon"></div>
+          Add user
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="page-content">
+    <div class="header">
+      <div class="container">
+        <ul class="nav justify-content-end">
+          <li class="dropdown" dropdown>
+            <a class="pointer user" dropdownToggle>
+              <fa-icon class="icon" [icon]="icons.faUserCircle"></fa-icon>
+              dannopek
+            </a>
+            <ul *dropdownMenu class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
-
-<a routerLink="/users">List Users</a>
-<a style="margin-left:10px" routerLink="/add">Add User</a>
-<br/>
-<router-outlet></router-outlet>

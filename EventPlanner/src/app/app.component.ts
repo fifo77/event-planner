@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faHome, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'eventplanner';
+  title: String = 'eventplanner';
+  icons: Object = {
+    'faHome': faHome,
+    'faUser': faUser,
+    'faUserCircle': faUserCircle
+  };
 }
