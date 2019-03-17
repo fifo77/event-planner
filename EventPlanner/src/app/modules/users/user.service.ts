@@ -11,7 +11,7 @@ export class UserService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = environment.host + '/users/';
+  private userUrl = environment.host + '/api/users/';
 
   public getUsers() {
     return this.http.get<User[]>(this.userUrl);

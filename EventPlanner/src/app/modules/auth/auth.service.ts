@@ -33,28 +33,31 @@ export class AuthService {
     }
 
     login(user: User, remember: Boolean, returnUrl: string, errCb: Function) {
-        this.isLoggedIn = true;
+        /*this.isLoggedIn = false;
         user.password = 'fuck you';
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.loggedUser = user;
         this.router.navigate([returnUrl]);
-        this.isLoggedIn = true;
-        /*this.httpClient.post(environment.host + '/auth/login', { username: username, password: password })
-            .subscribe(async data => {
-                if (data['status'] === 'success') {
+        this.isLoggedIn = true;*/
+        console.log('post request');
+        this.httpClient.post(environment.host + '/login', { username: user.email, password: user.password })
+            .subscribe(data => {
+                console.log('usemj sa');
+                //if (data['status'] === 'success') {
                     this.loggedUser = {
-                        id: data['user'],
-                        name: username,
+                        //id: data['user'],
+                        email: user.email,
                     };
-                    const token = data['token'];
+                    //const token = data['token'];
                     localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
-                    localStorage.setItem('currentToken', token);
+                    //localStorage.setItem('currentToken', token);
                     this.router.navigate([returnUrl]);
                     this.isLoggedIn = true;
-                }
+                //}
             }, err => {
+                console.log('fuck', err);
                 errCb();
-            });*/
+            });
     }
 
     logout() {
