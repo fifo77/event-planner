@@ -5,27 +5,24 @@ import com.eventplannerapi.auth.CustomUsernamePasswordAuthenticationFilter;
 import com.eventplannerapi.auth.MySavedRequestAwareAuthenticationSuccessHandler;
 import com.eventplannerapi.auth.RestAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
+    private static String REALM="MY_TEST_REALM";
 
     @Autowired
     CustomAuthenticationProvider customAuthenticationProvider;
@@ -44,23 +41,36 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        RestAuthenticationEntryPoint restAuthenticationEntryPoint = new RestAuthenticationEntryPoint();
-
         http
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/noauth/**").permitAll()
+
+                .antMatchers("/api/login").permitAll()
+
+                .antMatchers("/api/logout").permitAll()
+
+                .antMatchers("/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
+                        "/configuration/security/**", "/swagger-ui.html/**", "/webjars/**").permitAll()
+
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().denyAll()
+
                 .and()
+
                 .addFilterAt(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                .successHandler(this.mySuccessHandler)
-                .failureHandler(this.myFailureHandler)
+                .httpBasic().realmName(REALM)
                 .and()
-                .logout();
+
+                .logout()
+                .logoutUrl("/api/logout");
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
     @Bean
@@ -81,17 +91,9 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
         return res;
     }
 
-    /*@Bean
-    public FilterRegistrationBean corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
-    }*/
+    /* To allow Pre-flight [OPTIONS] request from browser */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
 }

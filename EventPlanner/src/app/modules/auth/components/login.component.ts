@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.authService.login(this.user, this.remember, this.returnUrl, () => {
             alert('Prihlasovacie údaje sú nesprávne');
+            this.user.password = '';
             this.loading = false;
         });
     }

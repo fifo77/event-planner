@@ -22,7 +22,7 @@ public class MySavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAu
     ) throws ServletException, IOException {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-        //response.sendError(HttpServletResponse.SC_ACCEPTED, "afoj");
+
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "content-type");
         response.setHeader("Access-Control-Allow-Methods", "*");

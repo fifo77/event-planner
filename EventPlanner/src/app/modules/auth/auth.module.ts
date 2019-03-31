@@ -9,6 +9,8 @@ import { AuthService } from './auth.service';
 import { LoginComponent } from './components/login.component';
 import { LogoutComponent } from './components/logout.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -18,6 +20,7 @@ import { LogoutComponent } from './components/logout.component';
     ],
     declarations: [LoginComponent, LogoutComponent],
     providers: [
+        CookieService,
         AuthGuard,
         AuthService
     ]

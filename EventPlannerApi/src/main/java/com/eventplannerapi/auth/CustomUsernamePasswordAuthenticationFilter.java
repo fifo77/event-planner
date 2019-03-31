@@ -62,7 +62,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
                 ObjectMapper mapper = new ObjectMapper();
                 User loginRequest = mapper.readValue(sb.toString(), User.class);
 
-                this.jsonUsername = loginRequest.getUsername();
+                this.jsonUsername = loginRequest.getUserName();
                 this.jsonPassword = loginRequest.getPassword();
             } catch (Exception e) {
                 e.printStackTrace();

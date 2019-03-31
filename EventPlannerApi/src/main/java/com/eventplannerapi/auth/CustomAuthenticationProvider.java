@@ -1,5 +1,8 @@
 package com.eventplannerapi.auth;
 
+import com.eventplannerapi.User;
+import com.eventplannerapi.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,13 +14,17 @@ import java.util.Collections;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
+    @Autowired
+    private UserService userService;
+
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
         String username = auth.getName();
         String password = auth.getCredentials().toString();
-        //System.out.println("username:" + username + " password: " + password);
         // TODO pozriet do DB a zistit ci existuje user
-        if ("admin".equals(username) && "adminPass".equals(password)) {
+        User user = userService.findByUserName(username);
+        System.out.println("username:" + username + " password: " + password + " -> " + user);
+        if (user != null && user.getPassword().equals(password)) {
             return new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
         } else {
             throw new BadCredentialsException("External system authentication failed");

@@ -1,24 +1,33 @@
 <div class="login container-fluid">
     <div class="row">
-        <div class="col-12 col-md-8 image">
+        <div class="col-sm-12 col-md-8 image">
             <div class="logo">
                 E P
             </div>
         </div>
-        <div class="col-12 col-md-4 content">
+        <div class="col-sm-12 col-md-4 content">
             <h4 class="text-grey py-5">Login</h4>
             <form>
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="email" class="form-control" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" placeholder="Username or e-mail">
+                    <input type="email" class="form-control"
+                        [(ngModel)]="user.userName"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" placeholder="Password">
+                    <input type="password" class="form-control"
+                        [(ngModel)]="user.password"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Password">
                 </div>
                 <div class="form-group form-check pt-2 float-left">
-                    <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}">
-                    <label class="form-check-label pointer" for="rememberMe">Remember Me</label>
+                    <input type="checkbox" class="form-check-input"
+                        id="rememberMe" [(ngModel)]="remember"
+                        [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label pointer" for="rememberMe">Remember
+                        Me</label>
                 </div>
                 <button class="btn btn-primary float-right" (click)="login()">Login</button>
             </form>

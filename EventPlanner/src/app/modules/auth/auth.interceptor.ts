@@ -6,14 +6,15 @@ import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private auth: AuthService) {
-    }
+    constructor(
+        private auth: AuthService,
+    ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let update = {};
-        if (localStorage.getItem('currentToken')) {
+        if (localStorage.getItem('authorization')) {   
             update = {
-                headers: req.headers.set('Session-Id', localStorage.getItem('currentToken'))
+                headers: req.headers.set('Authorization', 'Basic ' + localStorage.getItem('authorization'))
             };
         }
         const authReq = req.clone(update);
