@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from 'src/app/models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
         private titleService: Title,
         private route: ActivatedRoute,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {
         this.titleService.setTitle('Prihláste sa');
     }
@@ -36,7 +38,8 @@ export class LoginComponent implements OnInit {
     login() {
         this.loading = true;
         this.authService.login(this.user, this.remember, this.returnUrl, () => {
-            alert('Prihlasovacie údaje sú nesprávne');
+            this.toastr.error('Prihlasovacie údaje sú nesprávne', 'Chyba!');
+
             this.user.password = '';
             this.loading = false;
         });

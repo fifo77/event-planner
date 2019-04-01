@@ -14,6 +14,8 @@ import { AuthInterceptor } from './modules/auth/auth.interceptor';
 import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.route';
 import { ErrorComponent } from './error.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { UserModule } from './modules/users/user.module';
 
 @NgModule({
@@ -30,6 +32,8 @@ import { UserModule } from './modules/users/user.module';
     FontAwesomeModule,
     FormsModule,
     RouterModule.forRoot(AppRoutes),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     AuthModule,
     UserModule
   ],
