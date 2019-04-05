@@ -1,4 +1,4 @@
-package com.eventplannerapi;
+package com.eventplannerapi.models.user;
 
 import org.springframework.data.repository.Repository;
 

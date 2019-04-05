@@ -1,4 +1,4 @@
-package com.eventplannerapi;
+package com.eventplannerapi.models.user;
 
 import javax.persistence.*;
 
