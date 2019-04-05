@@ -24,7 +24,6 @@ export class AddUserComponent {
       .subscribe(_ => {
         this.toastr.success("User created successfully.", "Success!")
       });
-
   };
 
 }
