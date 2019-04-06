@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EventCalendarComponent } from './event.calendar/event.calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { UserSelectComponent } from './users.select/user.select.component';
 
 @NgModule({
     imports: [
@@ -16,8 +17,14 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
             useFactory: adapterFactory
         })
     ],
-    declarations: [EventCalendarComponent],
-    exports: [EventCalendarComponent]
+    declarations: [
+        EventCalendarComponent,
+        UserSelectComponent
+    ],
+    exports: [
+        EventCalendarComponent,
+        UserSelectComponent
+    ]
 })
 export class SharedModule {
 

@@ -98,6 +98,10 @@ body {
     border-bottom: 1px solid rgba(0,0,0,.0625);
 }
 
+.page-content .header h2 {
+    font-size: 1.4em;
+}
+
 .page-content .header .user {
     display: grid;
     grid-template-columns: 2em 1fr;
@@ -118,4 +122,9 @@ body {
 
 .pointer {
     cursor: pointer;
+}
+
+.card.selected {
+    box-shadow: 0 0 0.5em rgba(0, 200, 0, 0.3);
+    border: 1px solid rgba(0, 200, 0, 0.3);
 }

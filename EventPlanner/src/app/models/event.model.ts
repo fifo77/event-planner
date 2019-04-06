@@ -9,6 +9,6 @@ export class Event {
     description: String;
     closedEvent: Boolean;
 
-    eventTime: EventTime[];
-    eventInvitations: EventInvitation[];
+    eventTime: EventTime[] = [];
+    eventInvitations: EventInvitation[] = [];
 }

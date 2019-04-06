@@ -8,6 +8,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -21,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserModule } from './modules/users/user.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { EventModule } from './modules/events/event.module';
 
 @NgModule({
   declarations: [
@@ -42,10 +44,12 @@ import { SharedModule } from './modules/shared/shared.module';
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    NgbModule,
     AuthModule,
     DashboardModule,
     UserModule,
-    SharedModule
+    SharedModule,
+    EventModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

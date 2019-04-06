@@ -5,4 +5,8 @@ export class EventInvitation {
     user: User;
     event: Event;
     required_attendance: Number;
+
+    constructor(user: User) {
+        this.user = user;
+    }
 }

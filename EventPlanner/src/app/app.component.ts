@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { faHome, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faUserCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from './modules/auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,12 @@ export class AppComponent {
   icons: Object = {
     'faHome': faHome,
     'faUser': faUser,
-    'faUserCircle': faUserCircle
+    'faUserCircle': faUserCircle,
+    'faPlus': faPlus
   };
 
   constructor(
+    public titleService: Title,
     public authService: AuthService
   ) { }
 
