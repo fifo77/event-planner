@@ -4,12 +4,14 @@
             <h5 class="card-title">Basic information</h5>
             <div class="form-group">
                 <label for="name">Event name</label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="event.name" name="name"
+                <input type="text" class="form-control" id="name"
+                    [(ngModel)]="event.name" name="name"
                     placeholder="Enter event name">
             </div>
             <div class="form-group mb-1">
                 <label for="desc">Description</label>
-                <textarea class="form-control" id="desc" rows="3" [(ngModel)]="event.description" name="description"
+                <textarea class="form-control" id="desc" rows="3"
+                    [(ngModel)]="event.description" name="description"
                     placeholder="Enter event description"></textarea>
             </div>
         </div>
@@ -25,22 +27,26 @@
                 <td>Capacity</td>
                 <td></td>
             </thead>
-            <tbody *ngIf="eventDates.length > 0">
-                <tr *ngFor="let date of eventDates; let i = index">
+            <tbody *ngIf="eventDates.length> 0">
+                <tr *ngFor="let date of eventDates; let i= index">
                     <td>{{ i + 1 }}</td>
                     <td>
                         <div class="input-group">
                             <input class="form-control" placeholder="yyyy-mm-dd"
-                                name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
+                                name="dp" [(ngModel)]="date" ngbDatepicker
+                                #d="ngbDatepicker">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                <button class="btn btn-outline-secondary
+                                    calendar" (click)="d.toggle()"
+                                    type="button">
                                     <fa-icon [icon]="icons.faCalendar"></fa-icon>
                                 </button>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="capacity" [(ngModel)]="event.name" placeholder="">
+                        <input type="text" class="form-control" name="capacity"
+                            [(ngModel)]="event.name" placeholder="">
                     </td>
                     <td>
                         <button class="btn btn-danger" (click)="removeDate(i)">
@@ -65,22 +71,56 @@
         </div>
         <div class="card-body">
             <h5 class="card-title">User invitations</h5>
-            <button class="btn btn-primary" (click)="openModal(content)">Invite user</button>
+        </div>
+        <table class="table" *ngIf="event.eventInvitations.length> 0">
+            <thead>
+                <td style="width: 1.5em">#</td>
+                <td>Nickname</td>
+                <td>Min attendance</td>
+                <td></td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let invitation of event.eventInvitations; let i=
+                    index">
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                        <input class="form-control" placeholder="yyyy-mm-dd"
+                            name="dp" [(ngModel)]="invitation.user.userName">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="capacity"
+                            [(ngModel)]="invitation.required_attendance"
+                            placeholder="">
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"
+                            (click)="removeInvitation(i)">
+                            <fa-icon [icon]="icons.faTimes"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="card-body pt-0">
+            <button class="btn btn-primary" (click)="openModal(content)">Invite
+                user</button>
         </div>
     </div>
     <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Invite users</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <users-select [(selectedUsers)]="invitedUsers"></users-select>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Invite</button>
+            <button type="button" class="btn btn-outline-primary"
+                (click)="modal.close('Save click')">Invite</button>
         </div>
     </ng-template>
-    <button type="submit" class="btn btn-success" (click)="save()">Save</button>
+    <button type="submit" class="btn btn-success mb-3" (click)="save()">Save</button>
 </form>

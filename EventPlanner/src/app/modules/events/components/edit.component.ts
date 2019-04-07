@@ -24,7 +24,7 @@ export class EditComponent {
     constructor(
         private titleService: Title,
         private eventService: EventService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
     ) {
         this.titleService.setTitle('New event');
         this.addDate();
@@ -36,6 +36,10 @@ export class EditComponent {
 
     removeDate(index: number) {
         this.eventDates.splice(index, 1);
+    }
+
+    removeInvitation(index: number) {
+        this.event.eventInvitations.splice(index, 1);
     }
 
     openModal(content) {
@@ -54,6 +58,9 @@ export class EditComponent {
     }
 
     save() {
-        console.log(this.event)
+        console.log(this.event);
+        this.eventService.save(this.event).subscribe(_ => {
+            console.log('saved')
+        });
     }
 }
