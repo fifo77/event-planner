@@ -27,13 +27,13 @@
                 <td>Capacity</td>
                 <td></td>
             </thead>
-            <tbody *ngIf="eventDates.length> 0">
-                <tr *ngFor="let date of eventDates; let i= index">
+            <tbody *ngIf="event.eventTimes.length> 0">
+                <tr *ngFor="let date of event.eventTimes; let i= index">
                     <td>{{ i + 1 }}</td>
-                    <td>
+                    <td>    
                         <div class="input-group">
                             <input class="form-control" placeholder="yyyy-mm-dd"
-                                name="dp" [(ngModel)]="date" ngbDatepicker
+                                name="dp" [(ngModel)]="date.ngbDate" ngbDatepicker
                                 #d="ngbDatepicker">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary
@@ -45,8 +45,8 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="capacity"
-                            [(ngModel)]="event.name" placeholder="">
+                        <input type="number" class="form-control" name="capacity"
+                            [(ngModel)]="date.capacity" placeholder="">
                     </td>
                     <td>
                         <button class="btn btn-danger" (click)="removeDate(i)">
@@ -55,9 +55,9 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody *ngIf="eventDates.length == 0">
+            <tbody *ngIf="event.eventTimes.length == 0">
                 <tr>
-                    <td colspan="3">No dates added yet.</td>
+                    <td colspan="4">No dates added yet.</td>
                 </tr>
             </tbody>
         </table>

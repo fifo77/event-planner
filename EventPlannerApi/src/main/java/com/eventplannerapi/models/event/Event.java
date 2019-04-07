@@ -1,8 +1,11 @@
 package com.eventplannerapi.models.event;
 
+import com.eventplannerapi.models.event_invitation.EventInvitation;
+import com.eventplannerapi.models.event_time.EventTime;
 import com.eventplannerapi.models.user.User;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -25,6 +28,14 @@ public class Event {
 
     @Column
     private Boolean closed_event;
+
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    private List<EventTime> eventTimes;
+
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    private List<EventInvitation> eventInvitations;
 
     public int getId() {
         return id;
@@ -64,5 +75,21 @@ public class Event {
 
     public void setOrganisator(User organisator) {
         this.organisator = organisator;
+    }
+
+    public List<EventTime> getEventTimes() {
+        return this.eventTimes;
+    }
+
+    public void setEventTimes(List<EventTime> eventTimes) {
+        this.eventTimes = eventTimes;
+    }
+
+    public List<EventInvitation> getEventInvitations() {
+        return eventInvitations;
+    }
+
+    public void setEventInvitations(List<EventInvitation> eventInvitations) {
+        this.eventInvitations = eventInvitations;
     }
 }

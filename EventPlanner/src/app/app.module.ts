@@ -23,6 +23,7 @@ import { UserModule } from './modules/users/user.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { EventModule } from './modules/events/event.module';
+import { ErrorInterceptor } from './error.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EventModule } from './modules/events/event.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

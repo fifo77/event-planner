@@ -1,40 +1,49 @@
 <div class="page" *ngIf="authService.isLoggedIn; else login">
-  <div class="sidebar">
-    <div class="header">
-      <h1><a routerLink="/">Planner</a></h1>
+  <div class="sidebar-wrapper">
+    <div class="sidebar">
+      <div class="header">
+        <h1><a routerLink="/">Planner</a></h1>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">
+            <fa-icon class="icon text-blue" [icon]="icons.faHome"></fa-icon>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="users">
+            <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
+            Users
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="users/new">
+            <div class="icon"></div>
+            Add user
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="events">
+            <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
+            Events
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="events/new">
+            <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
+            New event
+          </a>
+        </li>
+      </ul>
     </div>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/">
-          <fa-icon class="icon text-blue" [icon]="icons.faHome"></fa-icon>
-          Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="users">
-          <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
-          Users
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="users/new">
-          <div class="icon"></div>
-          Add user
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="events/new">
-          <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
-          New event
-        </a>
-      </li>
-    </ul>
   </div>
   <div class="page-content">
     <div class="header">
       <div class="container">
         <div class="d-flex justify-content-between">
-          <h2 class="d-flex align-items-center m-0">{{ titleService.getTitle() }}</h2>
+          <h2 class="d-flex align-items-center m-0">{{ titleService.getTitle()
+            }}</h2>
           <ul class="nav justify-content-end">
             <li class="dropdown" dropdown>
               <a class="pointer user" dropdownToggle>

@@ -1,0 +1,41 @@
+<div class="card mb-3">
+    <div class="card-header">Event info</div>
+    <div class="card-body">
+        <p class="card-title"><small class="text-secondary">Name: </small><span class="h5">{{ event.name }}</span></p>
+        <p class="mb-0"><small class="text-secondary">Description: </small>{{ event.description }}</p>
+    </div>
+</div>
+<div class="card">
+    <table class="table table-bordered mb-0">
+        <thead>
+            <tr>
+                <th style="background: none;"></th>
+                <th *ngFor="let time of event.eventTimes" class="text-center">
+                    {{ time.timeStart | date: 'short' }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let invitation of event.eventInvitations">
+                <td>{{ invitation.user.userName }}</td>
+                <td *ngFor="let time of event.eventTimes" class="pointer"
+                 [class.bg-success]="time.attendance[invitation.user.id] == attendanceConst.VISIT" 
+                 [class.bg-secondary]="!time.attendance[invitation.user.id]" (click)="changeAttendance(time, invitation.user)"></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Add yourself</td>
+                <td *ngFor="let time of event.eventTimes" class="pointer"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Capacity: </td>
+                <td *ngFor="let time of event.eventTimes" class="text-center">
+                    {{ time.getAttendanceCount() + " / " + time.capacity }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

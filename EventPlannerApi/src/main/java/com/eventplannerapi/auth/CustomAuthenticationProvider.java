@@ -25,7 +25,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         password = passwordEncoder.encode(password);
         User user = userService.findByUserName(username);
-        System.out.println("username:" + username + " password: " + password + " -> " + user);
+        //System.out.println("username:" + username + " password: " + password + " -> " + user);
         if (user != null && user.getPassword().equals(password)) {
             return new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
         } else {

@@ -11,8 +11,10 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @PostMapping
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public Event create(@RequestBody Event event){
+        System.out.println("afoj");
+        System.out.println(event);
         return eventService.create(event);
     }
 
@@ -21,7 +23,7 @@ public class EventController {
         return eventService.findById(id);
     }
 
-    @PutMapping(path = {"/{id}"})
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
     public Event update(@PathVariable("id") int id, @RequestBody Event event){
         event.setId(id);
         return eventService.update(event);

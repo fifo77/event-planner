@@ -6,12 +6,14 @@ import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Event } from 'src/app/models/event.model';
 import { User } from 'src/app/models/user.model';
 import { EventInvitation } from 'src/app/models/event.invitation';
+import { ActivatedRoute } from '@angular/router';
+import { EventTime } from 'src/app/models/event.time';
 
 @Component({
     templateUrl: '../views/edit.component.html'
 })
 export class EditComponent {
-    event: Event = new Event();
+    event: Event = new Event(null);
     invitedUsers: User[];
 
     icons: Object = {
@@ -19,23 +21,30 @@ export class EditComponent {
         "faTimes": faTimes,
     }
 
-    eventDates: NgbDate[] = []
-
     constructor(
         private titleService: Title,
         private eventService: EventService,
         private modalService: NgbModal,
+        private route: ActivatedRoute
     ) {
         this.titleService.setTitle('New event');
         this.addDate();
+        this.route.params.subscribe(params => {
+            if (params.id) {
+                this.eventService.getById(params.id).subscribe(event => {
+                    this.event = new Event(event)
+                    this.titleService.setTitle('Edit event #' + this.event.id);
+                })
+            }
+        })
     }
 
     addDate() {
-        this.eventDates.push(new NgbDate(2019, 10, 10))
+        this.event.eventTimes.push(new EventTime())
     }
 
     removeDate(index: number) {
-        this.eventDates.splice(index, 1);
+        this.event.eventTimes.splice(index, 1);
     }
 
     removeInvitation(index: number) {
@@ -58,7 +67,7 @@ export class EditComponent {
     }
 
     save() {
-        console.log(this.event);
+        console.log(this.event);    
         this.eventService.save(this.event).subscribe(_ => {
             console.log('saved')
         });

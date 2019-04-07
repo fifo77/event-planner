@@ -14,9 +14,9 @@ public class EventTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn
-    private Event event;
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "event_id", insertable = false, updatable = false)
+//    private Event event;
 
     @Basic
     @Column(name = "time_start")
@@ -37,14 +37,13 @@ public class EventTime {
         this.id = id;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
+//    public Event getEvent() {
+//        return event;
+//    }
+//
+//    public void setEvent(Event event) {
+//        this.event = event;
+//    }
 
     public Timestamp getTimeStart() {
         return timeStart;

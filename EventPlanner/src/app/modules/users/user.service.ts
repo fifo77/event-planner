@@ -19,11 +19,11 @@ export class UserService {
     return this.http.get<User[]>(this.userUrl, { headers: headers, withCredentials: true });
   }
 
-  public deleteUser(user) {
+  public deleteUser(user: User) {
     return this.http.delete(this.userUrl + "/"+ user.id);
   }
 
-  public createUser(user) {
+  public createUser(user: User) {
     return this.http.post<User>(this.userUrl, user);
   }
 

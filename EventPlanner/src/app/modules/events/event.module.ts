@@ -9,6 +9,8 @@ import { EditComponent } from './components/edit.component';
 import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '../shared/shared.module';
+import { ListComponent } from './components/list.component';
+import { RegisterComponent } from './components/register.component';
 
 @NgModule({
     imports: [
@@ -22,7 +24,7 @@ import { SharedModule } from '../shared/shared.module';
         FormsModule,
         SharedModule
     ],
-    declarations: [EditComponent],
+    declarations: [ListComponent, EditComponent, RegisterComponent],
     providers: [EventService]
 })
 export class EventModule {

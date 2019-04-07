@@ -13,7 +13,18 @@ export class EventService {
 
   private hostUrl = environment.host + '/events/';
 
+  getAll() {
+    return this.http.get<Event[]>(this.hostUrl);
+  }
+
+  getById(id: number) {
+    return this.http.get<Event>(this.hostUrl + id);
+  }
+
   save(event: Event) {
+    if (event.id) {
+      return this.http.put(this.hostUrl + 'update/'+ event.id, event);
+    }
     return this.http.post(this.hostUrl + 'create', event);
   }
 }
