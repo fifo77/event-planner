@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user.model';
 import { EventInvitation } from 'src/app/models/event.invitation';
 import { ActivatedRoute } from '@angular/router';
 import { EventTime } from 'src/app/models/event.time';
+import { NgxUiLoaderService, Loader } from 'ngx-ui-loader';
 
 @Component({
     templateUrl: '../views/edit.component.html'
@@ -15,6 +16,7 @@ import { EventTime } from 'src/app/models/event.time';
 export class EditComponent {
     event: Event = new Event(null);
     invitedUsers: User[];
+    masterLoader: Loader;
 
     icons: Object = {
         "faCalendar": faCalendar,
@@ -25,7 +27,7 @@ export class EditComponent {
         private titleService: Title,
         private eventService: EventService,
         private modalService: NgbModal,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
     ) {
         this.titleService.setTitle('New event');
         this.addDate();
@@ -40,7 +42,10 @@ export class EditComponent {
     }
 
     addDate() {
-        this.event.eventTimes.push(new EventTime())
+        const eventTime: EventTime = new EventTime();
+        eventTime.timeStart = new Date();
+        eventTime.timeEnd = new Date();
+        this.event.eventTimes.push(new EventTime());
     }
 
     removeDate(index: number) {

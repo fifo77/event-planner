@@ -24,6 +24,28 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { EventModule } from './modules/events/event.module';
 import { ErrorInterceptor } from './error.interceptor';
+import { NgxUiLoaderModule, NgxUiLoaderConfig, SPINNER, POSITION,
+  PB_DIRECTION, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
+
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  // bgsColor: '#OOACC1',
+  // bgsOpacity: 0.5,
+  // bgsPosition: POSITION.bottomCenter,
+  // bgsSize: 60,
+  // bgsType: SPINNER.rectangleBounce,
+  // fgsColor: '#00ACC1',
+  // fgsPosition: POSITION.centerCenter,
+  // fgsSize: 60,
+  // fgsType: SPINNER.chasingDots,
+  // logoUrl: 'assets/angular.png',
+  // pbColor: '#FF0000',
+  // pbDirection: PB_DIRECTION.leftToRight,
+  // pbThickness: 5,
+  // text: 'Welcome to ngx-ui-loader',
+  // textColor: '#FFFFFF',
+  // textPosition: POSITION.centerCenter
+};
 
 @NgModule({
   declarations: [
@@ -50,7 +72,10 @@ import { ErrorInterceptor } from './error.interceptor';
     DashboardModule,
     UserModule,
     SharedModule,
-    EventModule
+    EventModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderRouterModule, // import this module for showing loader automatically when navigating between app routes
+    NgxUiLoaderHttpModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
