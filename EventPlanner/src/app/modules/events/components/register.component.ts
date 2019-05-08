@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Title } from '@angular/platform-browser';
-import { EventService } from '../event.service';
+import { EventService, UserEventTimeService } from '../event.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Event } from 'src/app/models/event.model';
@@ -11,10 +11,10 @@ import { UserEventTime } from 'src/app/models/user.event.time';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 class AttendanceUser {
-    user: Object;
+    user: User;
     userEventTimes: Object = {};
 
-    constructor(user: Object) {
+    constructor(user: User) {
         this.user = user;
     }
 }
@@ -37,9 +37,10 @@ export class RegisterComponent {
     constructor(
         private titleService: Title,
         private eventService: EventService,
+        private userEventTimeService: UserEventTimeService,
         private route: ActivatedRoute,
         private toastr: ToastrService,
-        private authService: AuthService
+        private authService: AuthService,
     ) {
         this.titleService.setTitle('Event registration')
         this.route.params.subscribe(params => {
@@ -49,7 +50,11 @@ export class RegisterComponent {
             this.eventService.getById(params.id).subscribe(event => {
                 this.event = new Event(event);
                 console.log(this.event)
-            })
+                console.log(this.authService.loggedUser)
+                if (this.event.eventInvitations.filter(eventInvitation => eventInvitation.user.id == this.authService.loggedUser.id).length) {
+                    this.canAddYourself = false;
+                }
+            });
         })
     }
 
@@ -63,14 +68,18 @@ export class RegisterComponent {
         this.canAddYourself = true;
     }
 
-    addAttendance(attendanceUser: AttendanceUser, time: EventTime) {
+    changeAttendance(attendanceUser: AttendanceUser, time: EventTime) {
+        if (attendanceUser.userEventTimes[time.id]) {
+            attendanceUser.userEventTimes[time.id] = null;
+            return;
+        }
         const userEvent: UserEventTime = new UserEventTime();
         //userEvent.user = attendanceUser.user;
         userEvent.eventTime = time;
         attendanceUser.userEventTimes[time.id] = userEvent;
     }
 
-    changeAttendance(time: EventTime, user: User) {
+    changeInvitationAttendance(time: EventTime, user: User) {
         if (time.getAttendanceCount() + 1 > time.capacity) {
             this.toastr.warning('Full capacity already!');
             return;
@@ -80,5 +89,25 @@ export class RegisterComponent {
         } else {
             time.attendance[user.id] = false;
         }
+    }
+
+    save() {
+        let userEventTimes: UserEventTime[] = [];
+        let curUserAttendance = this.attendanceUsers.filter(attendanceUser => attendanceUser.user.id == this.authService.loggedUser.id);
+        if (curUserAttendance.length) {
+            for (let key of Object.keys(curUserAttendance[0].userEventTimes)) {
+                const userEventTime: UserEventTime = curUserAttendance[0].userEventTimes[key];
+                userEventTime.user = this.authService.loggedUser;
+                userEventTimes.push(userEventTime);
+            }
+            userEventTimes.map(userEventTime => {
+                this.userEventTimeService.save(userEventTime).subscribe(_ => {
+                    
+                });      
+            })
+            //console.log(userEventTimes);
+        }
+
+        //this.eventService.saveEventTimes(this.authService.loggedUser, )
     }
 }

@@ -31,7 +31,7 @@
                     [class.bg-success]="time.attendance[invitation.user.id] ==
                     attendanceConst.VISIT"
                     [class.bg-secondary]="!time.attendance[invitation.user.id]"
-                    (click)="changeAttendance(time, invitation.user)"></td>
+                    (click)="changeInvitationAttendance(time, invitation.user)"></td>
             </tr>
         </tbody>
 
@@ -41,14 +41,14 @@
             </tr>
             <tr *ngFor="let attendanceUser of attendanceUsers">
                 <td class="d-flex justify-content-between">
-                    {{ attendanceUser.user.email }}
+                    {{ attendanceUser.user.userName }}
                     <fa-icon class="icon pointer" [icon]="icons.faClose"
                         (click)="removeYourself(attendanceUser)"></fa-icon>
                 </td>
                 <td *ngFor="let time of event.eventTimes" class="pointer"
                     [class.bg-success]="attendanceUser.userEventTimes[time.id]"
                     [class.bg-secondary]="!attendanceUser.userEventTimes[time.id]"
-                    (click)="addAttendance(attendanceUser, time)"></td>
+                    (click)="changeAttendance(attendanceUser, time)"></td>
             </tr>
         </tbody>
 
@@ -68,3 +68,5 @@
         </tfoot>
     </table>
 </div>
+
+<button class="btn btn-success mt-3" (click)="save()" i18n>Save</button>
