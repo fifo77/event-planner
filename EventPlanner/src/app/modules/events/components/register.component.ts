@@ -8,10 +8,11 @@ import { EventTime, ATTENDANCE } from 'src/app/models/event.time';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from '../../auth/auth.service';
 import { UserEventTime } from 'src/app/models/user.event.time';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 class AttendanceUser {
     user: Object;
-    eventTimes: EventTime[];
+    userEventTimes: Object = {};
 
     constructor(user: Object) {
         this.user = user;
@@ -26,6 +27,12 @@ export class RegisterComponent {
     attendanceConst: Object = ATTENDANCE;
 
     attendanceUsers: AttendanceUser[] = [];
+
+    canAddYourself: Boolean = true;
+
+    icons: Object = {
+        'faClose': faTimesCircle,
+      };
 
     constructor(
         private titleService: Title,
@@ -47,11 +54,20 @@ export class RegisterComponent {
     }
 
     addYourself() {
-        const userEventTime: UserEventTime = new UserEventTime();
         this.attendanceUsers.push(new AttendanceUser(this.authService.loggedUser));
-        userEventTime.eventTime = 
-        //this.event.userEventTimes.push();
-        console.log(this.authService.loggedUser);
+        this.canAddYourself = false;
+    }
+
+    removeYourself(attendanceUser: AttendanceUser) {
+        this.attendanceUsers = this.attendanceUsers.filter(attendance => attendance.user != attendanceUser.user);
+        this.canAddYourself = true;
+    }
+
+    addAttendance(attendanceUser: AttendanceUser, time: EventTime) {
+        const userEvent: UserEventTime = new UserEventTime();
+        //userEvent.user = attendanceUser.user;
+        userEvent.eventTime = time;
+        attendanceUser.userEventTimes[time.id] = userEvent;
     }
 
     changeAttendance(time: EventTime, user: User) {

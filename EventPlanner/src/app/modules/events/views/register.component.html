@@ -1,8 +1,14 @@
 <div class="card mb-3">
     <div class="card-header">Event info</div>
     <div class="card-body">
-        <p class="card-title"><small class="text-secondary">Name: </small><span class="h5">{{ event.name }}</span></p>
-        <p class="mb-0"><small class="text-secondary">Description: </small>{{ event.description }}</p>
+        <p class="card-title">
+            <small class="text-secondary">Name: </small>
+            <span class="h5">{{ event.name }}</span>
+        </p>
+        <p class="mb-0">
+            <small class="text-secondary">Description: </small>
+            {{ event.description }}
+        </p>
     </div>
 </div>
 <div class="card">
@@ -15,28 +21,41 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="event.eventInvitations.length> 0">
+            <tr>
+                <td class="text-center" colspan="100%">Invited users</td>
+            </tr>
             <tr *ngFor="let invitation of event.eventInvitations">
                 <td>{{ invitation.user.userName }}</td>
                 <td *ngFor="let time of event.eventTimes" class="pointer"
-                 [class.bg-success]="time.attendance[invitation.user.id] == attendanceConst.VISIT" 
-                 [class.bg-secondary]="!time.attendance[invitation.user.id]" (click)="changeAttendance(time, invitation.user)"></td>
+                    [class.bg-success]="time.attendance[invitation.user.id] ==
+                    attendanceConst.VISIT"
+                    [class.bg-secondary]="!time.attendance[invitation.user.id]"
+                    (click)="changeAttendance(time, invitation.user)"></td>
             </tr>
         </tbody>
 
         <tbody>
+            <tr *ngIf="event.eventInvitations.length> 0 && attendanceUsers.length> 0">
+                <td class="text-center" colspan="100%">Other users</td>
+            </tr>
             <tr *ngFor="let attendanceUser of attendanceUsers">
-                <td>{{ invitation.user.userName }}</td>
-                <td *ngFor="let userEventTime of attendanceUser" class="pointer"
-                 [class.bg-success]="time.attendance[invitation.user.id] == attendanceConst.VISIT" 
-                 [class.bg-secondary]="!time.attendance[invitation.user.id]" (click)="changeAttendance(time, invitation.user)"></td>
+                <td class="d-flex justify-content-between">
+                    {{ attendanceUser.user.email }}
+                    <fa-icon class="icon pointer" [icon]="icons.faClose"
+                        (click)="removeYourself(attendanceUser)"></fa-icon>
+                </td>
+                <td *ngFor="let time of event.eventTimes" class="pointer"
+                    [class.bg-success]="attendanceUser.userEventTimes[time.id]"
+                    [class.bg-secondary]="!attendanceUser.userEventTimes[time.id]"
+                    (click)="addAttendance(attendanceUser, time)"></td>
             </tr>
         </tbody>
 
-        <tbody>
+        <tbody *ngIf="canAddYourself">
             <tr>
-                <td class="pointer" (click)="addYourself()">Add yourself</td>
-                <td *ngFor="let time of event.eventTimes" class="pointer"></td>
+                <td class="pointer text-center" (click)="addYourself()"
+                    colspan="100%">Add yourself</td>
             </tr>
         </tbody>
         <tfoot>

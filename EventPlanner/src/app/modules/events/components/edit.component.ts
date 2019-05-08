@@ -6,9 +6,10 @@ import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Event } from 'src/app/models/event.model';
 import { User } from 'src/app/models/user.model';
 import { EventInvitation } from 'src/app/models/event.invitation';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventTime } from 'src/app/models/event.time';
 import { NgxUiLoaderService, Loader } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     templateUrl: '../views/edit.component.html'
@@ -28,6 +29,8 @@ export class EditComponent {
         private eventService: EventService,
         private modalService: NgbModal,
         private route: ActivatedRoute,
+        private toastr: ToastrService,
+        private router: Router
     ) {
         this.titleService.setTitle('New event');
         this.addDate();
@@ -79,7 +82,8 @@ export class EditComponent {
             eventTime.timeEnd = new Date(d.year, d.month, d.day);
         })
         this.eventService.save(this.event).subscribe(_ => {
-            console.log('saved')
+            this.toastr.success('Event saved');
+            this.router.navigate(['/events'])
         });
     }
 }

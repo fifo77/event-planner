@@ -6,7 +6,7 @@ export const ATTENDANCE = {
 }
 
 export class EventTime {
-    id: Number;
+    id: number;
     event: Event;
     timeStart: Date;
     timeEnd: Date;

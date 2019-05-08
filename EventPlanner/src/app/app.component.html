@@ -3,7 +3,7 @@
   <div class="sidebar-wrapper">
     <div class="sidebar">
       <div class="header">
-        <h1><a routerLink="/">Planner</a></h1>
+        <h1><a routerLink="/" i18n>Planner</a></h1>
       </div>
       <ul class="nav flex-column">
         <li class="nav-item">
@@ -33,14 +33,19 @@
           </a>
         </li>
       </ul>
+      <div class="languages">
+        <a class="button pointer" (click)="changeLang('en')">English</a> | 
+        <a class="button pointer" (click)="changeLang('sk')">Slovenčina</a>
+      </div>
     </div>
   </div>
   <div class="page-content">
     <div class="header">
       <div class="container">
         <div class="d-flex justify-content-between">
-          <h2 class="d-flex align-items-center m-0">{{ titleService.getTitle()
-            }}</h2>
+          <h2 class="d-flex align-items-center m-0">
+            {{ titleService.getTitle() }}
+          </h2>
           <ul class="nav justify-content-end">
             <li class="dropdown" dropdown>
               <a class="pointer user" dropdownToggle>

@@ -139,3 +139,10 @@ body {
 .sr-only {
     display: none;
 }
+
+.languages {
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    text-align: center;
+}

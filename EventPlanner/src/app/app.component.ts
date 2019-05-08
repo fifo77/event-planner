@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID, Inject } from '@angular/core';
 import { faHome, faUser, faUserCircle, faPlus, faCalendarAlt, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from './modules/auth/auth.service';
 import { Title } from '@angular/platform-browser';
@@ -19,12 +19,32 @@ export class AppComponent {
     'faCalendarPlus': faCalendarPlus,
   };
 
+  languageList = [
+    { code: 'en', label: 'English' },
+    { code: 'sk', label: 'Slovak' }
+  ];
+  
   constructor(
     public titleService: Title,
-    public authService: AuthService
-  ) { }
+    public authService: AuthService,
+    @Inject(LOCALE_ID) protected localeId: string
+  ) {
+    console.log(localeId);
+    this.localeId = 'en';
+   }
 
   ngOnInit() {
     this.authService.check();
+  }
+
+  changeLang(lang: string) {
+    if (lang === 'sk') {
+      localStorage.setItem('locale', 'sk');
+    }
+
+    if (lang === 'en') {
+      localStorage.setItem('locale', 'en');
+    }
+    location.reload();
   }
 }
