@@ -28,12 +28,12 @@
                 <td></td>
             </thead>
             <tbody *ngIf="event.eventTimes.length> 0">
-                <tr *ngFor="let date of event.eventTimes; let i= index">
+                <tr *ngFor="let eventTime of event.eventTimes; let i= index">
                     <td>{{ i + 1 }}</td>
                     <td>    
                         <div class="input-group">
                             <input class="form-control" placeholder="yyyy-mm-dd"
-                                name="dp" [(ngModel)]="date.ngbDate" ngbDatepicker
+                                name="dp" [(ngModel)]="eventTime.ngbDate" ngbDatepicker
                                 #d="ngbDatepicker">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary
@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         <input type="number" class="form-control" name="capacity"
-                            [(ngModel)]="date.capacity" placeholder="">
+                            [(ngModel)]="eventTime.capacity" placeholder="">
                     </td>
                     <td>
                         <button class="btn btn-danger" (click)="removeDate(i)">

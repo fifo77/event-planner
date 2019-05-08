@@ -29,11 +29,11 @@ public class Event {
     @Column
     private Boolean closed_event;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id")
     private List<EventTime> eventTimes;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
     private List<EventInvitation> eventInvitations;
 

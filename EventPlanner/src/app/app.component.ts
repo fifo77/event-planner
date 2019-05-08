@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faHome, faUser, faUserCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faUserCircle, faPlus, faCalendarAlt, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from './modules/auth/auth.service';
 import { Title } from '@angular/platform-browser';
 
@@ -14,7 +14,9 @@ export class AppComponent {
     'faHome': faHome,
     'faUser': faUser,
     'faUserCircle': faUserCircle,
-    'faPlus': faPlus
+    'faPlus': faPlus,
+    'faCalendarAlt': faCalendarAlt,
+    'faCalendarPlus': faCalendarPlus,
   };
 
   constructor(

@@ -12,28 +12,24 @@
             Dashboard
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-flex justify-content-between">
           <a class="nav-link" routerLink="users">
             <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
             Users
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="users/new">
-            <div class="icon"></div>
-            Add user
+          <a class="nav-link" routerLink="users/new" title="Add user">
+            <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
+            <span class="sr-only">Add user</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-flex justify-content-between">
           <a class="nav-link" routerLink="events">
-            <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
+            <fa-icon class="icon text-purple" [icon]="icons.faCalendarAlt"></fa-icon>
             Events
           </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" routerLink="events/new">
             <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
-            New event
+            <span class="sr-only">New event</span>
           </a>
         </li>
       </ul>

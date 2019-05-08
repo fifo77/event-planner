@@ -34,7 +34,7 @@ export class EditComponent {
         this.route.params.subscribe(params => {
             if (params.id) {
                 this.eventService.getById(params.id).subscribe(event => {
-                    this.event = new Event(event)
+                    this.event = new Event(event);
                     this.titleService.setTitle('Edit event #' + this.event.id);
                 })
             }
@@ -45,7 +45,7 @@ export class EditComponent {
         const eventTime: EventTime = new EventTime();
         eventTime.timeStart = new Date();
         eventTime.timeEnd = new Date();
-        this.event.eventTimes.push(new EventTime());
+        this.event.eventTimes.push(eventTime);
     }
 
     removeDate(index: number) {
@@ -73,6 +73,11 @@ export class EditComponent {
 
     save() {
         console.log(this.event);    
+        this.event.eventTimes.forEach(eventTime => {
+            const d = eventTime.ngbDate;
+            eventTime.timeStart = new Date(d.year, d.month, d.day);
+            eventTime.timeEnd = new Date(d.year, d.month, d.day);
+        })
         this.eventService.save(this.event).subscribe(_ => {
             console.log('saved')
         });

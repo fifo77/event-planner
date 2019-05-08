@@ -22,6 +22,7 @@ export class EventTime {
             this.event = time.event;
             this.timeStart = new Date(time.timeStart);
             this.timeEnd = new Date(time.timeEnd);
+            this.ngbDate = new NgbDate(this.timeStart.getFullYear(), this.timeStart.getMonth(), this.timeStart.getDate());
             this.capacity = time.capacity;
         }
     }

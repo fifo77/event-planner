@@ -23,9 +23,19 @@
                  [class.bg-secondary]="!time.attendance[invitation.user.id]" (click)="changeAttendance(time, invitation.user)"></td>
             </tr>
         </tbody>
+
+        <tbody>
+            <tr *ngFor="let attendanceUser of attendanceUsers">
+                <td>{{ invitation.user.userName }}</td>
+                <td *ngFor="let userEventTime of attendanceUser" class="pointer"
+                 [class.bg-success]="time.attendance[invitation.user.id] == attendanceConst.VISIT" 
+                 [class.bg-secondary]="!time.attendance[invitation.user.id]" (click)="changeAttendance(time, invitation.user)"></td>
+            </tr>
+        </tbody>
+
         <tbody>
             <tr>
-                <td>Add yourself</td>
+                <td class="pointer" (click)="addYourself()">Add yourself</td>
                 <td *ngFor="let time of event.eventTimes" class="pointer"></td>
             </tr>
         </tbody>
