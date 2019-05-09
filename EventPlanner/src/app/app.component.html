@@ -50,7 +50,7 @@
             <li class="dropdown" dropdown>
               <a class="pointer user" dropdownToggle>
                 <fa-icon class="icon" [icon]="icons.faUserCircle"></fa-icon>
-                {{ authService.loggedUser.email }}
+                {{ authService.loggedUser.userName }}
               </a>
               <div *dropdownMenu class="dropdown-menu dropdown-left">
                 <a class="dropdown-item" routerLink="auth/logout" i18n>Loggout</a>

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/user.model';
+import { UserService } from '../users/user.service';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
     constructor(
         private httpClient: HttpClient,
         private router: Router,
+        private userService: UserService
     ) {
         if (localStorage.getItem('currentUser')) {
             this.loggedUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -33,11 +35,12 @@ export class AuthService {
                 'Authorization': 'Basic ' + authorization
             })
         };
-        this.httpClient.get(environment.host + '/users', httpOptions) //, { username: user.email, password: user.password*/ }
-            .subscribe(data => {
+        this.httpClient.get<User[]>(environment.host + '/users', httpOptions) //, { username: user.email, password: user.password*/ }
+            .subscribe(users => {
                 //if (data['status'] === 'success') {
-                this.loggedUser = user;
-                if (!user.id) {
+                if (users.filter(curUser => curUser.userName == user.userName).length) {
+                    this.loggedUser = users.filter(curUser => curUser.userName == user.userName)[0];
+                } else {
                     this.loggedUser = {
                         ...user,
                         id: 1,
@@ -45,6 +48,7 @@ export class AuthService {
                     };
                 }
                 this.loggedUser.password = '';
+                //console.log(this.loggedUser);
                 //const token = data['token'];
                 localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
                 localStorage.setItem('authorization', authorization);

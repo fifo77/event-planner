@@ -19,6 +19,11 @@ export class UserService {
     return this.http.get<User[]>(this.userUrl, { headers: headers, withCredentials: true });
   }
 
+  public getByUsername(username: string) {
+    const headers = new HttpHeaders().set('Access-Control-Allow-Credentials', 'true');
+    return this.http.get<User>(this.userUrl + "username/" + username, { headers: headers, withCredentials: true });
+  }
+
   public deleteUser(user: User) {
     return this.http.delete(this.userUrl + "/"+ user.id);
   }

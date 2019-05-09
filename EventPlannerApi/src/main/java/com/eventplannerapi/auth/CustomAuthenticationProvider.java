@@ -23,7 +23,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = auth.getName();
         String password = auth.getCredentials().toString();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        password = passwordEncoder.encode(password);
+        //password = passwordEncoder.encode(password);
         User user = userService.findByUserName(username);
         //System.out.println("username:" + username + " password: " + password + " -> " + user);
         if (user != null && user.getPassword().equals(password)) {
