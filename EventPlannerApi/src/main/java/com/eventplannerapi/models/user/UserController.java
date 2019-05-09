@@ -1,11 +1,12 @@
 package com.eventplannerapi.models.user;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 @RestController
 @RequestMapping({"/api/users"})
@@ -13,7 +14,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+    static final Logger LOG = Logger.getLogger(UserController.class);
 
     @PostMapping
     public User create(@RequestBody User user){
