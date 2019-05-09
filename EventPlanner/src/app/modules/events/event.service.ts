@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Event } from 'src/app/models/event.model';
 import { UserEventTime } from 'src/app/models/user.event.time';
 import { EventTime } from 'src/app/models/event.time';
+import { EventInvitation } from 'src/app/models/event.invitation';
 
 @Injectable()
 export class EventService {
@@ -64,6 +65,18 @@ export class EventTimeService {
 
   save(event: EventTime) {
     return this.http.post(this.hostUrl + 'create', event);
+  }
+}
+
+@Injectable()
+export class EventInvitationService {
+
+  constructor(private http: HttpClient) { }
+
+  private hostUrl = environment.host + '/event_invitations/';
+
+  getByEvent(id: number) {
+    return this.http.get<EventInvitation[]>(this.hostUrl + 'by_event/' + id);
   }
 }
 

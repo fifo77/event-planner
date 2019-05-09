@@ -42,7 +42,7 @@
             <tr *ngFor="let attendanceUser of attendanceUsers">
                 <td class="d-flex justify-content-between">
                     {{ attendanceUser.user.userName }}
-                    <fa-icon class="icon pointer" [icon]="icons.faClose"
+                    <fa-icon class="icon pointer" *ngIf="loggedInUserId == attendanceUser.user.id" [icon]="icons.faClose"
                         (click)="removeYourself(attendanceUser)"></fa-icon>
                 </td>
                 <td *ngFor="let time of event.eventTimes" class="pointer"

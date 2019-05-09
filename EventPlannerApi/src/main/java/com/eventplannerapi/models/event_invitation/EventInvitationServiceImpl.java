@@ -40,4 +40,8 @@ public class EventInvitationServiceImpl implements EventInvitationService {
     public EventInvitation update(EventInvitation invitation) {
         return repository.save(invitation);
     }
+
+    public List<EventInvitation> findByEvent(int id) {
+        return repository.findByEvent(id);
+    }
 }

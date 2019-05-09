@@ -45,4 +45,9 @@ public class EventInvitationController {
     public List<EventInvitation> findAll(){
         return invitationService.findAll();
     }
+
+    @GetMapping(path ={"/by_event/{id}"})
+    public List<EventInvitation> findAllByEvent(@PathVariable("id") int id){
+        return invitationService.findByEvent(id);
+    }
 }

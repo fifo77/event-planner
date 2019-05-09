@@ -15,4 +15,6 @@ public interface EventInvitationService {
     EventInvitation findById(int id);
 
     EventInvitation update(EventInvitation invitation);
+
+    List<EventInvitation> findByEvent(int id);
 }

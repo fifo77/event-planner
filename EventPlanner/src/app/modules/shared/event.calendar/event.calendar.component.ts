@@ -168,7 +168,7 @@ export class EventCalendarComponent {
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = { event, action };
-        this.modal.open(this.modalContent, { size: 'lg' });
+        //this.modal.open(this.modalContent, { size: 'lg' });
     }
     addEvent(): void {
         this.events = [

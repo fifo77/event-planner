@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Title } from '@angular/platform-browser';
-import { EventService, UserEventTimeService } from '../event.service';
+import { EventService, UserEventTimeService, EventInvitationService } from '../event.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Event } from 'src/app/models/event.model';
@@ -9,7 +9,6 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from '../../auth/auth.service';
 import { UserEventTime } from 'src/app/models/user.event.time';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { AttachSession } from 'protractor/built/driverProviders';
 
 class AttendanceUser {
     user: User;
@@ -24,6 +23,7 @@ class AttendanceUser {
     templateUrl: '../views/register.component.html'
 })
 export class RegisterComponent {
+    loggedInUserId: number;
     event: Event = new Event();
     attendanceConst: Object = ATTENDANCE;
 
@@ -40,41 +40,48 @@ export class RegisterComponent {
         private eventService: EventService,
         private eventTimeService: UserEventTimeService,
         private userEventTimeService: UserEventTimeService,
+        private eventInvitationService: EventInvitationService,
         private route: ActivatedRoute,
         private toastr: ToastrService,
         private authService: AuthService,
     ) {
+        this.loggedInUserId = this.authService.loggedUser.id;
         this.titleService.setTitle('Event registration')
         this.route.params.subscribe(params => {
             if (!params.id) {
                 this.toastr.error('Cannot register to event!')
             }
+            // Naplnenie formulara existujucimi udajmi
             this.eventService.getById(params.id).subscribe(event => {
                 this.event = new Event(event);
-                console.log('afoj', this.event);
-                if (this.event.eventInvitations.filter(eventInvitation => eventInvitation.user.id == this.authService.loggedUser.id).length) {
-                    this.canAddYourself = false;
-                }
-                for (let eventTime of this.event.eventTimes) {
-                    this.userEventTimeService.getByEventTimeId(eventTime.id).subscribe(userEventTimes => {
-                        for (let key of Object.keys(userEventTimes)) {
-                            const userEventTime: UserEventTime = userEventTimes[key];
-                            eventTime.attendance[userEventTime.user.id] = ATTENDANCE.VISIT;
-                            const attendanceUser = this.attendanceUsers.filter(attandanceUser => attandanceUser.user.id == userEventTime.user.id);
-                            if (attendanceUser.length) {
-                                attendanceUser[0].userEventTimes[eventTime.id] = userEventTime;
-                            } else {
-                                const newAttandanceUser: AttendanceUser = new AttendanceUser(userEventTime.user);
-                                newAttandanceUser.userEventTimes[eventTime.id] = userEventTime;
-                                this.attendanceUsers.push(newAttandanceUser);
-                            }
+                //console.log('afoj', this.event);
+                this.eventInvitationService.getByEvent(event.id).subscribe(invitations => {
+                    //console.log(invitations);
+                    event.eventInvitations = invitations;
+                    if (this.event.eventInvitations.filter(eventInvitation => eventInvitation.user.id == this.authService.loggedUser.id).length) {
+                        this.canAddYourself = false;
+                    }
+                    for (let eventTime of this.event.eventTimes) {
+                        this.userEventTimeService.getByEventTimeId(eventTime.id).subscribe(userEventTimes => {
+                            for (let key of Object.keys(userEventTimes)) {
+                                const userEventTime: UserEventTime = userEventTimes[key];
+                                eventTime.attendance[userEventTime.user.id] = ATTENDANCE.VISIT;
+                                const attendanceUser = this.attendanceUsers.filter(attandanceUser => attandanceUser.user.id == userEventTime.user.id);
+                                if (attendanceUser.length) {
+                                    attendanceUser[0].userEventTimes[eventTime.id] = userEventTime;
+                                } else {
+                                    const newAttandanceUser: AttendanceUser = new AttendanceUser(userEventTime.user);
+                                    newAttandanceUser.userEventTimes[eventTime.id] = userEventTime;
+                                    this.attendanceUsers.push(newAttandanceUser);
+                                }
 
-                            if (userEventTime.user.id == this.authService.loggedUser.id) {
-                                this.canAddYourself = false;
+                                if (userEventTime.user.id == this.authService.loggedUser.id) {
+                                    this.canAddYourself = false;
+                                }
                             }
-                        }
-                    });
-                }
+                        });
+                    }
+                })
             });
         })
     }
@@ -98,6 +105,7 @@ export class RegisterComponent {
         //userEvent.user = attendanceUser.user;
         userEvent.eventTime = time;
         attendanceUser.userEventTimes[time.id] = userEvent;
+        this.changeInvitationAttendance(time, attendanceUser.user);
     }
 
     changeInvitationAttendance(time: EventTime, user: User) {
@@ -123,7 +131,7 @@ export class RegisterComponent {
             }
             userEventTimes.map(userEventTime => {
                 this.userEventTimeService.save(userEventTime).subscribe(_ => {
-
+                    this.toastr.success('Registered!')
                 });
             })
             //console.log(userEventTimes);
