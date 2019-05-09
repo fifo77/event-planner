@@ -1,5 +1,6 @@
 package com.eventplannerapi.models.event_invitation;
 
+import com.eventplannerapi.mail.EmailServiceImpl;
 import com.eventplannerapi.models.event.Event;
 import com.eventplannerapi.models.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,17 @@ import java.util.List;
 @RequestMapping({"/api/event_invitations"})
 public class EventInvitationController {
     @Autowired
+    public EmailServiceImpl emailService;
+
+    @Autowired
     private EventInvitationService invitationService;
 
     @PostMapping
     public EventInvitation create(@RequestBody EventInvitation invitation){
-        return invitationService.create(invitation);
+        EventInvitation eventInvitation = invitationService.create(invitation);
+        String message = "You have been invited to an event!!\n\n\nEvent Name: " + eventInvitation.getEvent().getName() + "\n\n\nCheck it out on http://localhost:4200/events/register/" + eventInvitation.getEvent().getId();
+        emailService.sendSimpleMessage(eventInvitation.getUser().getEmail(), "Event Invitation - " + eventInvitation.getEvent().getName(), message);
+        return eventInvitation;
     }
 
     @GetMapping(path = {"/{id}"})
