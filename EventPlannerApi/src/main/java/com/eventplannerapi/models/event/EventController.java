@@ -9,8 +9,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ public class EventController {
     @Autowired
     public EmailServiceImpl emailService;
 
-    static final Logger LOG = LoggerFactory.getLogger(EventInvitationController.class);
+    static final Logger LOG = Logger.getLogger(EventInvitationController.class);
 
     @Autowired
     private EventService eventService;
