@@ -6,7 +6,7 @@ import { UserEventTime } from './user.event.time';
 export class Event {
     id: Number;
     organisator: User;
-    name: String;
+    name: string;
     description: String;
     closedEvent: Boolean;
 

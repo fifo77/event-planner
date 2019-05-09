@@ -51,7 +51,7 @@ export class RegisterComponent {
             }
             this.eventService.getById(params.id).subscribe(event => {
                 this.event = new Event(event);
-                console.log(this.event)
+                console.log('afoj', this.event);
                 if (this.event.eventInvitations.filter(eventInvitation => eventInvitation.user.id == this.authService.loggedUser.id).length) {
                     this.canAddYourself = false;
                 }

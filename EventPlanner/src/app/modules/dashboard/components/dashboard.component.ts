@@ -24,8 +24,5 @@ export class DashboardComponent {
         this.eventService.getByInvitedUser(this.authService.loggedUser.id).subscribe(events => {
             this.invitedEvents = events;
         });
-        this.eventService.getForUser(this.authService.loggedUser.id).subscribe(events => {
-            this.userEvents = events;
-        });
     }
 }
