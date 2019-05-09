@@ -9,13 +9,13 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/">
             <fa-icon class="icon text-blue" [icon]="icons.faHome"></fa-icon>
-            Dashboard
+            <span i18n>Dashboard</span>
           </a>
         </li>
         <li class="nav-item d-flex justify-content-between">
           <a class="nav-link" routerLink="users">
             <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
-            Users
+            <span i18n>Users</span>
           </a>
           <a class="nav-link" routerLink="users/new" title="Add user">
             <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
@@ -25,7 +25,7 @@
         <li class="nav-item d-flex justify-content-between">
           <a class="nav-link" routerLink="events">
             <fa-icon class="icon text-purple" [icon]="icons.faCalendarAlt"></fa-icon>
-            Events
+            <span i18n>Events</span>
           </a>
           <a class="nav-link" routerLink="events/new">
             <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
@@ -53,7 +53,7 @@
                 {{ authService.loggedUser.email }}
               </a>
               <div *dropdownMenu class="dropdown-menu dropdown-left">
-                <a class="dropdown-item" routerLink="auth/logout">Odhlásiť sa</a>
+                <a class="dropdown-item" routerLink="auth/logout" i18n>Loggout</a>
               </div>
             </li>
           </ul>

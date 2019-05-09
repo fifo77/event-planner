@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { EventService } from './event.service';
+import { EventService, UserEventTimeService, EventTimeService } from './event.service';
 import { EventRoutes } from './event.route';
 import { EditComponent } from './components/edit.component';
 import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +25,7 @@ import { RegisterComponent } from './components/register.component';
         SharedModule
     ],
     declarations: [ListComponent, EditComponent, RegisterComponent],
-    providers: [EventService]
+    providers: [EventService, EventTimeService, UserEventTimeService]
 })
 export class EventModule {
 

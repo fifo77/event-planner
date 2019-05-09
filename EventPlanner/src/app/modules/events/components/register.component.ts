@@ -37,6 +37,7 @@ export class RegisterComponent {
     constructor(
         private titleService: Title,
         private eventService: EventService,
+        private eventTimeService: UserEventTimeService,
         private userEventTimeService: UserEventTimeService,
         private route: ActivatedRoute,
         private toastr: ToastrService,
@@ -50,10 +51,14 @@ export class RegisterComponent {
             this.eventService.getById(params.id).subscribe(event => {
                 this.event = new Event(event);
                 console.log(this.event)
-                console.log(this.authService.loggedUser)
                 if (this.event.eventInvitations.filter(eventInvitation => eventInvitation.user.id == this.authService.loggedUser.id).length) {
                     this.canAddYourself = false;
                 }
+                // for (let eventTime of this.event.eventTimes) {
+                //     this.userEventTimeService.getByEventTimeId(eventTime.id).subscribe(_ => {
+
+                //     });
+                // }
             });
         })
     }
@@ -102,7 +107,7 @@ export class RegisterComponent {
             }
             userEventTimes.map(userEventTime => {
                 this.userEventTimeService.save(userEventTime).subscribe(_ => {
-                    
+
                 });      
             })
             //console.log(userEventTimes);

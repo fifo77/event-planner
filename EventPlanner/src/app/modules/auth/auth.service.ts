@@ -7,7 +7,7 @@ import { User } from 'src/app/models/user.model';
 @Injectable()
 export class AuthService {
     isLoggedIn: boolean = false;
-    loggedUser: Object;
+    loggedUser: User;
 
     constructor(
         private httpClient: HttpClient,
@@ -36,10 +36,15 @@ export class AuthService {
         this.httpClient.get(environment.host + '/users', httpOptions) //, { username: user.email, password: user.password*/ }
             .subscribe(data => {
                 //if (data['status'] === 'success') {
-                this.loggedUser = {
-                    //id: data['user'],
-                    email: user.userName,
-                };
+                this.loggedUser = user;
+                if (!user.id) {
+                    this.loggedUser = {
+                        ...user,
+                        id: 1,
+                        email: user.userName
+                    };
+                }
+                this.loggedUser.password = '';
                 //const token = data['token'];
                 localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
                 localStorage.setItem('authorization', authorization);

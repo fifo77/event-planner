@@ -1,15 +1,15 @@
 <form>
     <div class="card mb-4">
         <div class="card-body">
-            <h5 class="card-title">Basic information</h5>
+            <h5 class="card-title" i18n>Basic information</h5>
             <div class="form-group">
-                <label for="name">Event name</label>
+                <label for="name" i18n>Event name</label>
                 <input type="text" class="form-control" id="name"
                     [(ngModel)]="event.name" name="name"
                     placeholder="Enter event name">
             </div>
             <div class="form-group mb-1">
-                <label for="desc">Description</label>
+                <label for="desc" i18n>Description</label>
                 <textarea class="form-control" id="desc" rows="3"
                     [(ngModel)]="event.description" name="description"
                     placeholder="Enter event description"></textarea>
@@ -23,8 +23,8 @@
         <table class="table">
             <thead>
                 <td style="width: 1.5em">#</td>
-                <td>Date</td>
-                <td>Capacity</td>
+                <td i18n>Date</td>
+                <td i18n>Capacity</td>
                 <td></td>
             </thead>
             <tbody *ngIf="event.eventTimes.length> 0">
@@ -57,7 +57,7 @@
             </tbody>
             <tbody *ngIf="event.eventTimes.length == 0">
                 <tr>
-                    <td colspan="4">No dates added yet.</td>
+                    <td colspan="4" i18n>No dates added yet.</td>
                 </tr>
             </tbody>
         </table>
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="card mb-4">
-        <div class="card-header">
+        <div class="card-header" i18n>
             Additional
         </div>
         <div class="card-body">
@@ -75,8 +75,8 @@
         <table class="table" *ngIf="event.eventInvitations.length> 0">
             <thead>
                 <td style="width: 1.5em">#</td>
-                <td>Nickname</td>
-                <td>Min attendance</td>
+                <td i18n>Nickname</td>
+                <td i18n>Min attendance</td>
                 <td></td>
             </thead>
             <tbody>
@@ -102,13 +102,14 @@
             </tbody>
         </table>
         <div class="card-body pt-0">
-            <button class="btn btn-primary" (click)="openModal(content)">Invite
-                user</button>
+            <button class="btn btn-primary" (click)="openModal(content)" i18n>
+                Invite user
+            </button>
         </div>
     </div>
     <ng-template #content let-modal>
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Invite users</h4>
+            <h4 class="modal-title" id="modal-basic-title" i18n>Invite users</h4>
             <button type="button" class="close" aria-label="Close"
                 (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
@@ -119,8 +120,8 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-primary"
-                (click)="modal.close('Save click')">Invite</button>
+                (click)="modal.close('Save click')" i18n>Invite</button>
         </div>
     </ng-template>
-    <button type="submit" class="btn btn-success mb-3" (click)="save()">Save</button>
+    <button type="submit" class="btn btn-success mb-3" (click)="save()" i18n>Save</button>
 </form>
