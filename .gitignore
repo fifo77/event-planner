@@ -23,3 +23,8 @@
 hs_err_pid*
 
 */.idea/*
+
+EventPlanner/node_modules/*
+EventPlanner/yarn.lock
+
+EventPlannerApi/target/

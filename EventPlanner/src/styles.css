@@ -1,1 +1,155 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    background: #f9fafb;
+}
+
+.b-white {
+    background: white;
+}
+
+.text-grey {
+    color: #313435
+}
+
+.text-blue {
+    color: #007bff;
+}
+
+.text-orange {
+    color: #ff5722;
+}
+
+.text-purple {
+    color: #673ab7;
+}
+
+.text-pink {
+    color: #e91e63;
+}
+
+.text-red {
+    color: #f44336;
+}
+
+.text-red {
+    color: #009688;
+}
+
+.dropdown-left {
+    right: 0 !important;
+    left: auto !important;
+}
+
+.page {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+}
+
+.sidebar-wrapper {
+    height: 100vh;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid rgba(0,0,0,.0625);
+}
+
+.sidebar .header {
+    border-bottom: 1px solid rgba(0,0,0,.0625);
+    padding: 0;
+}
+
+.sidebar .header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.sidebar .header h1 a {
+    display: grid;
+    width: 100%;
+    height: 65px;
+    align-items: center;
+    padding: 0 1.2em;
+    color: #313435
+}
+
+.sidebar .header h1 a:hover {
+    text-decoration: none;
+}
+
+.sidebar ul .icon {
+    display: inline-block;
+    width: 2em;
+    text-align: center;
+    padding: 0 2em 0 1em;
+}
+
+.sidebar ul a {
+    font-weight: 500;
+    color: #313435;
+}
+
+.page-content .header {
+    background: white;
+    display: grid;
+    width: 100%;
+    height: 66px;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,.0625);
+}
+
+.page-content .header h2 {
+    font-size: 1.4em;
+}
+
+.page-content .header .user {
+    display: grid;
+    grid-template-columns: 2em 1fr;
+    grid-column-gap: 1em;
+    align-items: center;
+    height: 65px;
+    padding: 0 1em;
+    color: #313435;
+}
+
+.page-content .header .user .icon {
+    font-size: 2em;
+}
+
+.header {
+    margin-bottom: 1.5em;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.card.selected {
+    box-shadow: 0 0 0.5em rgba(0, 200, 0, 0.3);
+    border: 1px solid rgba(0, 200, 0, 0.3);
+}
+
+.sr-only {
+    display: none;
+}
+
+.languages {
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    text-align: center;
+}
+
+.card-link-full {
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: black;
+}

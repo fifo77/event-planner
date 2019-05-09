@@ -1,11 +1,71 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<ngx-ui-loader></ngx-ui-loader>
+<div class="page" *ngIf="authService.isLoggedIn; else login">
+  <div class="sidebar-wrapper">
+    <div class="sidebar">
+      <div class="header">
+        <h1><a routerLink="/" i18n>Planner</a></h1>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">
+            <fa-icon class="icon text-blue" [icon]="icons.faHome"></fa-icon>
+            <span i18n>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item d-flex justify-content-between">
+          <a class="nav-link" routerLink="users">
+            <fa-icon class="icon text-orange" [icon]="icons.faUser"></fa-icon>
+            <span i18n>Users</span>
+          </a>
+          <a class="nav-link" routerLink="users/new" title="Add user">
+            <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
+            <span class="sr-only">Add user</span>
+          </a>
+        </li>
+        <li class="nav-item d-flex justify-content-between">
+          <a class="nav-link" routerLink="events">
+            <fa-icon class="icon text-purple" [icon]="icons.faCalendarAlt"></fa-icon>
+            <span i18n>Events</span>
+          </a>
+          <a class="nav-link" routerLink="events/new">
+            <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
+            <span class="sr-only">New event</span>
+          </a>
+        </li>
+      </ul>
+      <div class="languages">
+        <a class="button pointer" (click)="changeLang('en')">English</a> | 
+        <a class="button pointer" (click)="changeLang('sk')">Slovenčina</a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="header">
+      <div class="container">
+        <div class="d-flex justify-content-between">
+          <h2 class="d-flex align-items-center m-0">
+            {{ titleService.getTitle() }}
+          </h2>
+          <ul class="nav justify-content-end">
+            <li class="dropdown" dropdown>
+              <a class="pointer user" dropdownToggle>
+                <fa-icon class="icon" [icon]="icons.faUserCircle"></fa-icon>
+                {{ authService.loggedUser.userName }}
+              </a>
+              <div *dropdownMenu class="dropdown-menu dropdown-left">
+                <a class="dropdown-item" routerLink="auth/logout" i18n>Loggout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
 
-<a routerLink="/users">List Users</a>
-<a style="margin-left:10px" routerLink="/add">Add User</a>
-<br/>
-<router-outlet></router-outlet>
+<ng-template #login>
+  <router-outlet></router-outlet>
+</ng-template>

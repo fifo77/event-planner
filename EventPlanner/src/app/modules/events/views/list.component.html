@@ -1,0 +1,27 @@
+<div class="card">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th i18n>Name</th>
+                <th i18n>Description</th>
+                <th i18n>Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="events.length > 0">
+            <tr *ngFor="let event of events">
+                <td>{{ event.name }}</td>
+                <td>{{ event.description }}</td>
+                <td>
+                    <a [routerLink]="'edit/' + event.id" i18n>Edit</a> | 
+                    <a [routerLink]="'register/' + event.id" i18n>Register</a> |
+                    <a class="pointer text-primary" (click)="delete(event.id)" i18n>Delete</a>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="events.length == 0">
+            <tr>
+                <td colspan="4" i18n>No events yet</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

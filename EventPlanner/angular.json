@@ -23,12 +23,22 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/angular-calendar/css/angular-calendar.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
           },
           "configurations": {
+            "sk": {
+              "aot": true,
+              "i18nFile": "src/translate/messages.sk.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "sk",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -58,9 +68,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "EventPlanner:build"
+            "browserTarget": "EventPlanner:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
+            "sk": {
+              "browserTarget": "EventPlanner:build:sk"
+            },
             "production": {
               "browserTarget": "EventPlanner:build:production"
             }

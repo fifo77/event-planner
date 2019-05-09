@@ -1,0 +1,12 @@
+<div class="row">
+    <div *ngFor="let user of users" class="col-sm-4">
+        <a class="card pointer" [class.selected]="user.selected" (click)="selectUser(user)">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.model.userName }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ user.model.email }}</h6>
+                <span class="text-primary" *ngIf="!user.selected">select</span>
+                <span class="text-primary" *ngIf="user.selected">unselect</span>
+            </div>
+        </a>
+    </div>
+</div>
