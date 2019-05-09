@@ -1,10 +1,16 @@
 package com.eventplannerapi.models.event;
 
+import com.eventplannerapi.mail.EmailServiceImpl;
+import com.eventplannerapi.models.event_invitation.EventInvitation;
+import com.eventplannerapi.models.event_invitation.EventInvitationController;
+import com.eventplannerapi.models.event_invitation.EventInvitationService;
 import com.eventplannerapi.models.event_time.EventTimeService;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +25,29 @@ import java.util.List;
 @RequestMapping({"/api/events"})
 public class EventController {
     @Autowired
+    public EmailServiceImpl emailService;
+
+    static final Logger LOG = LoggerFactory.getLogger(EventInvitationController.class);
+
+    @Autowired
     private EventService eventService;
     @Autowired
     private EventTimeService eventTimeService;
+    @Autowired
+    private EventInvitationService eventInvitationService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public Event create(@RequestBody Event event){
-        System.out.println("afoj");
-        System.out.println(event);
-        return eventService.create(event);
+        Event eventCreated = eventService.create(event);
+        List<EventInvitation> invitations = eventCreated.getEventInvitations();
+        for (int i = 0; i < invitations.size(); i++) {
+            EventInvitation eventInvitation = invitations.get(i);
+            System.out.println("EventInvitation " + invitations.get(i).getUser().getEmail());
+            LOG.info("Sending inviatation to " + eventInvitation.getUser().getEmail());
+            String message = "You have been invited to an event!!\n\n\nEvent Name: " + eventCreated.getName() + "\n\n\nCheck it out on http://localhost:4200/events/register/" + eventCreated.getId();
+            emailService.sendSimpleMessage(eventInvitation.getUser().getEmail(), "Event Invitation - " + eventCreated.getName(), message);
+        }
+        return eventCreated;
     }
 
     @GetMapping(path = {"/{id}"})
@@ -37,6 +57,8 @@ public class EventController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
     public Event update(@PathVariable("id") int id, @RequestBody Event event){
+        List<EventInvitation> invitations = event.getEventInvitations();
+
         event.setId(id);
         return eventService.update(event);
     }

@@ -20,7 +20,7 @@ public class EventInvitation {
     private User user;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn()
     private Event event;
 
     @Column
