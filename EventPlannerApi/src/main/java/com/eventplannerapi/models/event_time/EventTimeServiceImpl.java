@@ -2,6 +2,7 @@ package com.eventplannerapi.models.event_time;
 
 import com.eventplannerapi.models.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

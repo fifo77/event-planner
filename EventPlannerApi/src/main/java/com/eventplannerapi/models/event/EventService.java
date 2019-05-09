@@ -12,4 +12,10 @@ public interface EventService {
     Event findById(int id);
 
     Event update(Event event);
+
+    List<Event> findByInvitedUser(int id);
+
+    List<Event> findUpcoming(String date);
+
+    List<Event> findForUser(int userId);
 }

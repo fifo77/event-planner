@@ -24,7 +24,15 @@ export class EventService {
   }
 
   getByInvitedUser(id: number) {
-    return this.http.get<Event[]>(this.hostUrl + 'get_by_invited_user/' + id);
+    return this.http.get<Event[]>(this.hostUrl + 'get_invited_user/' + id);
+  }
+
+  getUpcoming() {
+    return this.http.get<Event[]>(this.hostUrl + 'upcoming');
+  }
+
+  getForUser(userId: number) {
+    return this.http.get<Event[]>(this.hostUrl + 'for_user/' + userId);
   }
 
   save(event: Event) {
@@ -32,6 +40,10 @@ export class EventService {
       return this.http.put(this.hostUrl + 'update/'+ event.id, event);
     }
     return this.http.post(this.hostUrl + 'create', event);
+  }
+
+  delete(id: number) {
+    return this.http.delete(this.hostUrl + '/' + id);
   }
 }
 

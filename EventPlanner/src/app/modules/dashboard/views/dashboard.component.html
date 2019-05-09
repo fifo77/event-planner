@@ -1,1 +1,38 @@
-<event></event>
+<div class="row">
+    <div class="col-sm-9">
+        <event></event>
+        <div class="card mt-4">
+            <div class="card-header" i18n>
+                Invited to events
+            </div>
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                            <td i18n>Event</td>
+                            <td i18n>Actions</td>
+                        </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let event of invitedEvents">
+                            <td>{{ event.name }}</td>
+                            <td><a [routerLink]="['/events/register/' + event.id]">Register</a></td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card mb-4">
+            <div class="card-header" i18n>
+                Upcoming events
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item p-0" *ngFor="let event of upcomingEvents">
+                    <a class="card-link-full mx-2 my-1" [routerLink]="['/events/register/' + event.id]" title="Register">
+                        {{ event.name }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

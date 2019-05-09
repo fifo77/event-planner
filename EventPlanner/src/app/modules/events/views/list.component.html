@@ -4,7 +4,6 @@
             <tr>
                 <th i18n>Name</th>
                 <th i18n>Description</th>
-                <th i18n>Date</th>
                 <th i18n>Actions</th>
             </tr>
         </thead>
@@ -12,11 +11,10 @@
             <tr *ngFor="let event of events">
                 <td>{{ event.name }}</td>
                 <td>{{ event.description }}</td>
-                <td></td>
                 <td>
                     <a [routerLink]="'edit/' + event.id" i18n>Edit</a> | 
-                    <a [routerLink]="'attendance/' + event.id" i18n>Attendance</a> | 
-                    <a [routerLink]="'register/' + event.id" i18n>Register</a>
+                    <a [routerLink]="'register/' + event.id" i18n>Register</a> |
+                    <a class="pointer text-primary" (click)="delete(event.id)" i18n>Delete</a>
                 </td>
             </tr>
         </tbody>
