@@ -39,7 +39,7 @@ public class EventTimeServiceImpl implements EventTimeService {
     public List<EventTime> findByEvent(Event event) {
         List<EventTime> eventTimes = repository.findByEvent(event);
         for (int i = 0; i < eventTimes.size(); i++) {
-            //EventTime eventTime = eventTimes[i];
+            EventTime eventTime = eventTimes.get(i);
 
         }
         //eventTime.setUserEventTimes();

@@ -24,7 +24,7 @@ public class UserEventTimeController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public UserEventTime create(@RequestBody UserEventTime userEventTime){
         return userEventTimeService.create(userEventTime);
     }
@@ -34,16 +34,16 @@ public class UserEventTimeController {
         return userEventTimeService.findById(id);
     }
 
-    @GetMapping(path = {"/get_by_event_time/{id}"})
-    public List<UserEventTime> getByEventTime(@PathVariable("id") int id) {
-        EventTime eventTime = eventTimeService.findById(id);
-        return userEventTimeService.findByEventTime(eventTime);
-    }
-
     @GetMapping(path = {"/get_by_invited_user/{id}"})
     public List<UserEventTime> findByInvitedUser(@PathVariable("id") int id){
         User user = userService.findById(id);
         return userEventTimeService.findByUser(user);
+    }
+
+    @GetMapping(path = {"/get_by_event_time/{id}"})
+    public List<UserEventTime> findAllByEventTime(@PathVariable("id") int id){
+        EventTime eventTime= eventTimeService.findById(id);
+        return userEventTimeService.findByEventTime(eventTime);
     }
 
     @PutMapping(path = {"/{id}"})

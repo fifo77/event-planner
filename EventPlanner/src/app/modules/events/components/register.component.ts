@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from '../../auth/auth.service';
 import { UserEventTime } from 'src/app/models/user.event.time';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { AttachSession } from 'protractor/built/driverProviders';
 
 class AttendanceUser {
     user: User;
@@ -32,7 +33,7 @@ export class RegisterComponent {
 
     icons: Object = {
         'faClose': faTimesCircle,
-      };
+    };
 
     constructor(
         private titleService: Title,
@@ -54,11 +55,26 @@ export class RegisterComponent {
                 if (this.event.eventInvitations.filter(eventInvitation => eventInvitation.user.id == this.authService.loggedUser.id).length) {
                     this.canAddYourself = false;
                 }
-                // for (let eventTime of this.event.eventTimes) {
-                //     this.userEventTimeService.getByEventTimeId(eventTime.id).subscribe(_ => {
+                for (let eventTime of this.event.eventTimes) {
+                    this.userEventTimeService.getByEventTimeId(eventTime.id).subscribe(userEventTimes => {
+                        for (let key of Object.keys(userEventTimes)) {
+                            const userEventTime: UserEventTime = userEventTimes[key];
+                            eventTime.attendance[userEventTime.user.id] = ATTENDANCE.VISIT;
+                            const attendanceUser = this.attendanceUsers.filter(attandanceUser => attandanceUser.user.id == userEventTime.user.id);
+                            if (attendanceUser.length) {
+                                attendanceUser[0].userEventTimes[eventTime.id] = userEventTime;
+                            } else {
+                                const newAttandanceUser: AttendanceUser = new AttendanceUser(userEventTime.user);
+                                newAttandanceUser.userEventTimes[eventTime.id] = userEventTime;
+                                this.attendanceUsers.push(newAttandanceUser);
+                            }
 
-                //     });
-                // }
+                            if (userEventTime.user.id == this.authService.loggedUser.id) {
+                                this.canAddYourself = false;
+                            }
+                        }
+                    });
+                }
             });
         })
     }
@@ -108,7 +124,7 @@ export class RegisterComponent {
             userEventTimes.map(userEventTime => {
                 this.userEventTimeService.save(userEventTime).subscribe(_ => {
 
-                });      
+                });
             })
             //console.log(userEventTimes);
         }

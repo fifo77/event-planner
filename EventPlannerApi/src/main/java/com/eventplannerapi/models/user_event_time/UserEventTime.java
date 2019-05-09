@@ -20,7 +20,7 @@ public class UserEventTime {
     private User user;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "event_time")
     private EventTime eventTime;
 
     public int getId() {
