@@ -1,5 +1,6 @@
 package com.eventplannerapi.models.event_time;
 
+import com.eventplannerapi.models.event.Event;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface EventTimeRepository extends Repository<EventTime, Integer> {
     List<EventTime> findAll();
 
     EventTime findById(int id);
+
+    List<EventTime> findByEvent(Event event);
 
     EventTime save(EventTime eventTime);
 }

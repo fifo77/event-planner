@@ -1,5 +1,7 @@
 package com.eventplannerapi.models.user_event_time;
 
+import com.eventplannerapi.models.event_time.EventTime;
+import com.eventplannerapi.models.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,16 @@ public class UserEventTimeServiceImpl implements UserEventTimeService{
     @Override
     public UserEventTime findById(int id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public List<UserEventTime> findByEventTime(EventTime eventTime) {
+        return repository.findByEventTime(eventTime);
+    }
+
+    @Override
+    public List<UserEventTime> findByUser(User id) {
+        return repository.findByUser(id);
     }
 
     @Override

@@ -2,11 +2,13 @@ package com.eventplannerapi.models.user_event_time;
 import com.eventplannerapi.models.event.Event;
 import com.eventplannerapi.models.event_time.EventTime;
 import com.eventplannerapi.models.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_event_times")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserEventTime {
     @Id
     @Column

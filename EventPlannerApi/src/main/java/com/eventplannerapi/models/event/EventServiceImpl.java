@@ -1,5 +1,6 @@
 package com.eventplannerapi.models.event;
 
+import com.eventplannerapi.models.event_time.EventTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventRepository repository;
+
+    @Autowired
+    private EventTimeRepository repositoryEventTime;
 
     @Override
     public Event create(Event event) {
@@ -32,6 +36,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event findById(int id) {
+        Event event = repository.findById(id);
+        //event.setEventTimes(repositoryEventTime.findByEvent(event));
         return repository.findById(id);
     }
 
