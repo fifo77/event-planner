@@ -2,11 +2,13 @@ package com.eventplannerapi.models.event_invitation;
 
 import com.eventplannerapi.models.event.Event;
 import com.eventplannerapi.models.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "event_invitations")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class EventInvitation {
     @Id
     @Column
@@ -17,9 +19,9 @@ public class EventInvitation {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @ManyToOne(fetch=FetchType.LAZY)
-//    @JoinColumn
-//    private Event event;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn
+    private Event event;
 
     @Column
     private Integer required_attendance;
@@ -32,13 +34,13 @@ public class EventInvitation {
         this.id = id;
     }
 
-//    public Event getEvent() {
-//        return event;
-//    }
-//
-//    public void setEvent(Event event) {
-//        this.event = event;
-//    }
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     public User getUser() {
         return user;

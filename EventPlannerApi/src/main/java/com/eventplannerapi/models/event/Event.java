@@ -85,11 +85,11 @@ public class Event {
         this.eventTimes = eventTimes;
     }
 
-    public List<EventInvitation> getEventInvitations() {
-        return eventInvitations;
-    }
-
-    public void setEventInvitations(List<EventInvitation> eventInvitations) {
-        this.eventInvitations = eventInvitations;
-    }
+//    public List<EventInvitation> getEventInvitations() {
+//        return eventInvitations;
+//    }
+//
+//    public void setEventInvitations(List<EventInvitation> eventInvitations) {
+//        this.eventInvitations = eventInvitations;
+//    }
 }
